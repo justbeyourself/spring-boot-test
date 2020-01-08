@@ -19,7 +19,7 @@ public class LocalTimeTest {
         //LocalDate 年月日
         LocalDate localDate = LocalDate.now();
         System.out.println("\n============localDate===============");
-        System.out.println("年月日\t" + localDate.format(DateTimeFormatter.ISO_DATE));
+        System.out.println("年月日\t" + localDate.format(DateTimeFormatter.BASIC_ISO_DATE));
         System.out.println("年\t" + localDate.getYear());
         System.out.println("月\t" + localDate.getMonth());
         System.out.println("月\t" + localDate.getMonthValue());

@@ -31,7 +31,7 @@ public class ExcelTest {
     private static Row row;            //工作行
 
     //读取的Excel文件路径
-    private final static String path = "/Users/zhanghuiyong/Documents/上海电信-1小时必达/客户资料/1226/门店营维数据---宝山.xlsx";
+    private final static String path = "/Users/zhanghuiyong/Documents/上海电信-1小时必达/客户资料/1226/上门人员数据---宝山 V2.1.xlsx";
 
     //读取Excels表格
     public static void readExcels(String filepath) {
@@ -84,12 +84,13 @@ public class ExcelTest {
         System.out.println("rowNum:" + rowNum);
         List<String> addressList = new ArrayList<String>();
         // 正文内容应该从第二行开始,第一行为表头的标题
-        for (int i = 1; i <= rowNum; i++) {
+        for (int i = 2; i <= rowNum; i++) {
             Row r = sheet.getRow(i);
-            if (!"宝山局".equals(r.getCell(0).getStringCellValue())) {
-                break;
-            }
+//            if (!"宝山局".equals(r.getCell(0).getStringCellValue())) {
+//                break;
+//            }
             int cellNum = r.getLastCellNum();
+            System.out.println("cellNum:" +cellNum);
             String cellParam = "";
             for (int j = 0; j < cellNum; j++) {
 
