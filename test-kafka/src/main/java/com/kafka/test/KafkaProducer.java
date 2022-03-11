@@ -1,5 +1,6 @@
 package com.kafka.test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -10,13 +11,18 @@ import org.springframework.stereotype.Component;
  * @create: 2022-03-09 17:57
  */
 @Component
+@Slf4j
 public class KafkaProducer {
 
     @Autowired
-    private KafkaTemplate kafkaTemplate;
+    private KafkaTemplate<String, String> kafkaTemplate;
+
+    @Autowired
+    private KafkaSendResultHandler kafkaSendResultHandler;
 
     public void sendMessage(String topic, String message) {
-        System.out.println("[KafkaProducer]topic:" + topic + "\t message:" + message);
+        log.info("[KafkaProducer]topic:{}\t message:{}", topic, message);
+        kafkaTemplate.setProducerListener(kafkaSendResultHandler);
         kafkaTemplate.send(topic, message, message);
     }
 

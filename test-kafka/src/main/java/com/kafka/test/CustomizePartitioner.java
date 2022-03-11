@@ -1,5 +1,6 @@
 package com.kafka.test;
 
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.producer.Partitioner;
 import org.apache.kafka.common.Cluster;
 import org.apache.kafka.common.PartitionInfo;
@@ -12,6 +13,7 @@ import java.util.Map;
  * @author: zhanghuiyong
  * @create: 2022-03-10 13:56
  */
+@Slf4j
 public class CustomizePartitioner implements Partitioner {
 
     public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
@@ -21,11 +23,11 @@ public class CustomizePartitioner implements Partitioner {
     }
 
     public void close() {
-        System.out.println("close...");
+        log.info("close...");
     }
 
     public void configure(Map<String, ?> map) {
-        System.out.println("init config...");
+        log.info("init config...");
 
     }
 }
