@@ -16,11 +16,12 @@ import org.springframework.stereotype.Component;
 public class KafkaSendResultHandler implements ProducerListener {
 
     public void onSuccess(ProducerRecord producerRecord, RecordMetadata recordMetadata) {
-        log.info("Message send success.topic:{}\tpartition:{}\tkey:{}\tvalue:{}",
+        log.info("Message send success.topic:{}\tpartition:{}\tkey:{}\tvalue:{}\toffset:{}",
                 producerRecord.topic(),
                 recordMetadata.partition(),
                 producerRecord.key(),
-                producerRecord.value());
+                producerRecord.value(),
+                recordMetadata.offset());
     }
 
     public void onError(ProducerRecord producerRecord, Exception exception) {

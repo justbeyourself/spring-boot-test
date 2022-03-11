@@ -6,6 +6,8 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.stereotype.Component;
 
+import java.util.List;
+
 import static com.kafka.test.KafkaTopic.TEST_TOPIC;
 
 /**
@@ -18,8 +20,8 @@ import static com.kafka.test.KafkaTopic.TEST_TOPIC;
 public class KafkaConsumer {
 
     @KafkaListener(topics = TEST_TOPIC)
-    public void listen(@Payload String message, Acknowledgment ack) {
-        log.info("[KafkaConsumer]message:{}", message);
+    public void listen(@Payload List<String> message, Acknowledgment ack) {
+        log.info("[KafkaConsumer]message:{}", message.size());
         ack.acknowledge();
     }
 }

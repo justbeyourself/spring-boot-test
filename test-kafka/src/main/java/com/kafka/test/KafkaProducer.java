@@ -21,9 +21,14 @@ public class KafkaProducer {
     private KafkaSendResultHandler kafkaSendResultHandler;
 
     public void sendMessage(String topic, String message) {
-        log.info("[KafkaProducer]topic:{}\t message:{}", topic, message);
+        log.info("[KafkaProducer]topic:{}\tmessage:{}", topic, message);
         kafkaTemplate.setProducerListener(kafkaSendResultHandler);
         kafkaTemplate.send(topic, message, message);
     }
 
+    public void sendMessage(String topic, String key, String message) {
+        log.info("[KafkaProducer]topic:{}\tkey:{}\tmessage:{}", topic, key, message);
+        kafkaTemplate.setProducerListener(kafkaSendResultHandler);
+        kafkaTemplate.send(topic, key, message);
+    }
 }
