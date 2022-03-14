@@ -22,7 +22,7 @@ public class KafkaTest {
     private KafkaProducer kafkaProducer;
 
     @Test
-    public void ProducerTest() {
+    public void producerTest() {
         String topic = KafkaTopic.TEST_TOPIC;
         String key = "100000143149640000009000000";
         for(int i = 0;i<10;i++){
