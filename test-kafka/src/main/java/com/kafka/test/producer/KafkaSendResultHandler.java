@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class KafkaSendResultHandler implements ProducerListener {
 
+    @Override
     public void onSuccess(ProducerRecord producerRecord, RecordMetadata recordMetadata) {
         log.info("Message send success.topic:{}\tpartition:{}\tkey:{}\tvalue:{}\toffset:{}",
                 producerRecord.topic(),
@@ -24,6 +25,7 @@ public class KafkaSendResultHandler implements ProducerListener {
                 recordMetadata.offset());
     }
 
+    @Override
     public void onError(ProducerRecord producerRecord, Exception exception) {
         log.info("Message send error : {}" + producerRecord.toString());
     }

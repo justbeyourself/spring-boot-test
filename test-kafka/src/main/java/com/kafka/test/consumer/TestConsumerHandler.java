@@ -1,12 +1,10 @@
 package com.kafka.test.consumer;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.utils.Utils;
 import org.springframework.stereotype.Component;
-
-import java.util.List;
-import java.util.concurrent.*;
 
 /**
  * @description: 测试类
@@ -20,9 +18,10 @@ public class TestConsumerHandler extends AbstractConsumerHandler {
     @Override
     protected void handle(ConsumerRecord<String, String> consumerRecord) {
         try {
+            log.info("[handle] consumerRecord:{}", consumerRecord.toString());
             Thread.sleep(1000);
         } catch (InterruptedException e) {
-            log.error("TestConsumerHandler throw InterruptedException ", e);
+            log.error("[handle] throw InterruptedException ", e);
         }
     }
 
@@ -32,7 +31,7 @@ public class TestConsumerHandler extends AbstractConsumerHandler {
     }
 
     @Override
-    protected Integer getConsumerExecutorKey(ConsumerRecord<String, String> consumerRecord) {
-        return Utils.toPositive(Utils.murmur2(consumerRecord.toString().getBytes()));
+    protected String getConsumerExecutorKey(ConsumerRecord<String, String> consumerRecord) {
+        return consumerRecord.partition()+"_"+Utils.toPositive(Utils.murmur2(consumerRecord.value().getBytes())) % MAX_THREAD_POOL_NUM;
     }
 }

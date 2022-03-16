@@ -26,9 +26,12 @@ public class KafkaConsumer {
 
     @KafkaListener(topics = TEST_TOPIC)
     public void listen(@Payload List<ConsumerRecord<String, String>> message, Acknowledgment ack) {
-        log.info("[KafkaConsumer]message:{}", message.size());
+        long start = System.currentTimeMillis();
+        log.info("[listen]message:{}", message.size());
         testConsumerHandler.submit(message);
         ack.acknowledge();
+        log.info("[listen] listen cost{}", System.currentTimeMillis() - start);
+
     }
 }
 
