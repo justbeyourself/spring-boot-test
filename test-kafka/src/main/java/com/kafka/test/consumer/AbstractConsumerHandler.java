@@ -1,5 +1,6 @@
 package com.kafka.test.consumer;
 
+import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 
@@ -26,7 +27,20 @@ public abstract class AbstractConsumerHandler {
     public void submit(List<ConsumerRecord<String, String>> consumerRecordList) {
         countDownLatch = new CountDownLatch(consumerRecordList.size());
         try {
-          //todo 业务逻辑
+            consumerRecordList.stream().forEach(consumerRecord -> {
+                ThreadPoolExecutor executor = getConsumerExecutor(consumerRecord);
+                try {
+                    executor.execute(() -> {
+                        long start = System.currentTimeMillis();
+                        handle(consumerRecord);
+                        log.info("[KafkaConsumer] consumerRecord{},handle cost:{}", JSON.toJSONString(consumerRecord), System.currentTimeMillis() - start);
+                    });
+                } catch (Throwable e) {
+                    log.error("[KafkaConsumer] consumer executor ", e);
+                } finally {
+                    countDownLatch.countDown();
+                }
+            });
             countDownLatch.await();
         } catch (InterruptedException e) {
             log.error("[KafkaConsumer] submit throw InterruptedException", e);
