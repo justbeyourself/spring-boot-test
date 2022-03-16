@@ -1,5 +1,6 @@
 package com.kafka.test;
 
+import com.kafka.test.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

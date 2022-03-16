@@ -1,6 +1,7 @@
-package com.kafka.test;
+package com.kafka.test.consumer;
 
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.kafka.annotation.KafkaListener;
 import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.messaging.handler.annotation.Payload;
@@ -20,7 +21,7 @@ import static com.kafka.test.KafkaTopic.TEST_TOPIC;
 public class KafkaConsumer {
 
     @KafkaListener(topics = TEST_TOPIC)
-    public void listen(@Payload List<String> message, Acknowledgment ack) {
+    public void listen(@Payload List<ConsumerRecord<String, String>> message, Acknowledgment ack) {
         log.info("[KafkaConsumer]message:{}", message.size());
         ack.acknowledge();
     }
