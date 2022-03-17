@@ -2,7 +2,6 @@ package com.kafka.test.consumer;
 
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
-import org.apache.kafka.common.protocol.types.Field;
 import org.springframework.beans.factory.annotation.Value;
 
 import java.util.List;
@@ -19,9 +18,9 @@ public abstract class AbstractConsumerHandler {
     protected static final int MAX_THREAD_POOL_NUM = 8;
 
     @Value("${spring.kafka.listener.concurrency}")
-    private static int concurrency;
+    private int concurrency;
 
-    private static final ConcurrentHashMap<String, ThreadPoolExecutor> consumerExecutors = new ConcurrentHashMap<>(concurrency * MAX_THREAD_POOL_NUM);
+    private static final ConcurrentHashMap<String, ThreadPoolExecutor> consumerExecutors = new ConcurrentHashMap<>( MAX_THREAD_POOL_NUM);
 
     /**
      * 消息提交

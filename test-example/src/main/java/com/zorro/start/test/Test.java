@@ -24,9 +24,7 @@ public class Test {
 //        if(CollectionUtils.isEmpty(strings)){
 //            System.out.println("empty");
 //        }
-        ConcurrentHashMap<String,String> map = new ConcurrentHashMap<>(1);
-        map.put("1","1");
-        map.put("2","2");
-        System.out.println("ok");
+        ConcurrentHashMap<String,String> map = new ConcurrentHashMap<>(2);
+        System.out.println(map.size());
     }
 }
