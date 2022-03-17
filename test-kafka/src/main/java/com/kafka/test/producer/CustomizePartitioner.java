@@ -16,16 +16,19 @@ import java.util.Map;
 @Slf4j
 public class CustomizePartitioner implements Partitioner {
 
+    @Override
     public int partition(String topic, Object key, byte[] keyBytes, Object value, byte[] valueBytes, Cluster cluster) {
         //获取topic分区列表
         List<PartitionInfo> partitionerList = cluster.availablePartitionsForTopic(topic);
         return 1;
     }
 
+    @Override
     public void close() {
         log.info("close...");
     }
 
+    @Override
     public void configure(Map<String, ?> map) {
         log.info("init config...");
 

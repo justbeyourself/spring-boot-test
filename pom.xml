@@ -11,13 +11,13 @@
         <module>test-example</module>
         <module>test-redis</module>
         <module>test-kafka</module>
+        <module>test-demo</module>
     </modules>
 
     <name>test</name>
     <packaging>pom</packaging>
 
     <properties>
-        <java.version>1.8</java.version>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
     </properties>
@@ -46,6 +46,4 @@
             </plugins>
         </pluginManagement>
     </build>
-
-
 </project>

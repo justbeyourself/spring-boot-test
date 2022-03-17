@@ -15,7 +15,7 @@ import java.util.concurrent.*;
 @Slf4j
 public abstract class AbstractConsumerHandler {
 
-    protected static final int MAX_THREAD_POOL_NUM = 8;
+    protected static final int MAX_THREAD_POOL_NUM = 32;
 
     @Value("${spring.kafka.listener.concurrency}")
     private int concurrency;
@@ -71,6 +71,7 @@ public abstract class AbstractConsumerHandler {
                     new ArrayBlockingQueue<>(100),
                     r -> new Thread(r, getConsumerExecutorName() + "_thread_pool_" + executorKey),
                     new ThreadPoolExecutor.AbortPolicy());
+            executor.allowCoreThreadTimeOut(true);
             consumerExecutors.put(executorKey, executor);
         }
         return executor;
