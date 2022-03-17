@@ -20,7 +20,7 @@ public abstract class AbstractConsumerHandler {
     @Value("${spring.kafka.listener.concurrency}")
     private int concurrency;
 
-    private static final ConcurrentHashMap<String, ThreadPoolExecutor> consumerExecutors = new ConcurrentHashMap<>( MAX_THREAD_POOL_NUM);
+    private final ConcurrentHashMap<String, ThreadPoolExecutor> consumerExecutors = new ConcurrentHashMap<>(concurrency * MAX_THREAD_POOL_NUM);
 
     /**
      * 消息提交
