@@ -15,7 +15,7 @@ import java.util.concurrent.*;
 @Slf4j
 public abstract class AbstractConsumerHandler {
 
-    protected static final int MAX_THREAD_POOL_NUM = 16;
+    protected static final int MAX_THREAD_POOL_NUM = 32;
 
     @Value("${spring.kafka.listener.concurrency}")
     private int concurrency;

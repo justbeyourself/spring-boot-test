@@ -7,5 +7,5 @@ package com.kafka.test;
  */
 public class KafkaTopic {
 
-    public static final String TEST_TOPIC = "test_topic";
+    public static final String TEST_TOPIC = "test_topic55";
 }

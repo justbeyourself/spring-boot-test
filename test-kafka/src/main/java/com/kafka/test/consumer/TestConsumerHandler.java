@@ -5,6 +5,10 @@ import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.common.utils.Utils;
 import org.springframework.stereotype.Component;
 
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
 /**
  * @description: 测试类
  * @author: zhanghuiyong
@@ -13,6 +17,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class TestConsumerHandler extends AbstractConsumerHandler {
+
+    private final ConcurrentMap<Integer, AtomicInteger> consumerCounterMap = new ConcurrentHashMap<>();
+
+    private final ConcurrentMap<Integer, String> consumerExecutorKeyMap = new ConcurrentHashMap<>();
 
     @Override
     protected void handle(ConsumerRecord<String, String> consumerRecord) {
@@ -29,8 +37,17 @@ public class TestConsumerHandler extends AbstractConsumerHandler {
         return "test";
     }
 
+
     @Override
     protected String getConsumerExecutorKey(ConsumerRecord<String, String> consumerRecord) {
-        return consumerRecord.partition()+"_"+Utils.toPositive(Utils.murmur2(consumerRecord.value().getBytes())) % MAX_THREAD_POOL_NUM;
+        int partition = consumerRecord.partition();
+        int hashCode = Utils.toPositive(Utils.murmur2(consumerRecord.key().getBytes()));
+        return consumerExecutorKeyMap.computeIfAbsent(hashCode, h ->
+                partition + "_" + Utils.toPositive(nextValue(partition)) % MAX_THREAD_POOL_NUM);
+    }
+
+    private int nextValue(int partition) {
+        AtomicInteger counter = consumerCounterMap.computeIfAbsent(partition, k -> new AtomicInteger(0));
+        return counter.getAndIncrement();
     }
 }
