@@ -71,7 +71,6 @@ public abstract class AbstractConsumerHandler {
                     r -> new Thread(r, getConsumerExecutorName() + "_thread_pool_" + executorKey),
                     new ThreadPoolExecutor.AbortPolicy());
             executor.allowCoreThreadTimeOut(true);
-            consumerExecutors.put(executorKey, executor);
             return executor;
         });
     }
