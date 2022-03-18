@@ -15,7 +15,7 @@ import java.util.concurrent.*;
 @Slf4j
 public abstract class AbstractConsumerHandler {
 
-    protected static final int MAX_THREAD_POOL_NUM = 32;
+    protected static final int MAX_THREAD_POOL_NUM = 16;
 
     @Value("${spring.kafka.listener.concurrency}")
     private int concurrency;
@@ -65,16 +65,15 @@ public abstract class AbstractConsumerHandler {
      */
     private ThreadPoolExecutor getConsumerExecutor(ConsumerRecord<String, String> consumerRecord) {
         String executorKey = getConsumerExecutorKey(consumerRecord);
-        ThreadPoolExecutor executor = consumerExecutors.get(executorKey);
-        if (null == executor) {
-            executor = new ThreadPoolExecutor(1, 1, 10, TimeUnit.SECONDS,
+        return consumerExecutors.computeIfAbsent(executorKey, k -> {
+            ThreadPoolExecutor executor = new ThreadPoolExecutor(1, 1, 10, TimeUnit.SECONDS,
                     new ArrayBlockingQueue<>(100),
                     r -> new Thread(r, getConsumerExecutorName() + "_thread_pool_" + executorKey),
                     new ThreadPoolExecutor.AbortPolicy());
             executor.allowCoreThreadTimeOut(true);
             consumerExecutors.put(executorKey, executor);
-        }
-        return executor;
+            return executor;
+        });
     }
 
     /**
