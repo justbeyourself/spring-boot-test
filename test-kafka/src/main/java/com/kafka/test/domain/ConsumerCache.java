@@ -22,7 +22,7 @@ public class ConsumerCache {
 
     public ConsumerCache() {
         this.consumerCounterMap = new ConcurrentHashMap<>();
-        this.consumerExecutorKeyMap = CacheBuilder.newBuilder().expireAfterAccess(24 * 60 * 60 * 1000, TimeUnit.MILLISECONDS).build();
+        this.consumerExecutorKeyMap = CacheBuilder.newBuilder().expireAfterAccess(24 * 60 * 60 * 1000L, TimeUnit.MILLISECONDS).build();
     }
 
     public String getConsumerExecutorKey(int partition, String key, int maxThreadPoolNum) {
