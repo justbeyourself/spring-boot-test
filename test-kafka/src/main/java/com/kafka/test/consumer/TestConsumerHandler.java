@@ -1,6 +1,8 @@
 package com.kafka.test.consumer;
 
+import com.alibaba.fastjson.JSONObject;
 import com.kafka.test.domain.ConsumerCache;
+import com.kafka.test.domain.TestMessage;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.stereotype.Component;
@@ -19,7 +21,9 @@ public class TestConsumerHandler extends AbstractConsumerHandler {
     @Override
     protected void handle(ConsumerRecord<String, String> consumerRecord) {
         try {
-            log.info("[handle] consumerRecord:{}", consumerRecord.toString());
+            TestMessage message = JSONObject.parseObject(consumerRecord.value(), TestMessage.class);
+
+            log.info("[handle] consumerRecord:{}", message.toString());
             Thread.sleep(1000);
         } catch (InterruptedException e) {
             log.error("[handle] throw InterruptedException ", e);
@@ -34,6 +38,9 @@ public class TestConsumerHandler extends AbstractConsumerHandler {
 
     @Override
     protected String getConsumerExecutorKey(ConsumerRecord<String, String> consumerRecord) {
+
+        TestMessage message = JSONObject.parseObject(consumerRecord.value(), TestMessage.class);
+        String key = message.getMrchCode() + message.getTenantId() + message.getOneid();
         return consumerCache.getConsumerExecutorKey(consumerRecord.partition(), consumerRecord.key(), MAX_THREAD_POOL_NUM);
     }
 }

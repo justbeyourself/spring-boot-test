@@ -1,11 +1,10 @@
 package com.kafka.test;
 
+import com.alibaba.fastjson.JSONObject;
+import com.kafka.test.domain.TestMessage;
 import com.kafka.test.producer.KafkaProducer;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * @description: ${description}
@@ -23,5 +22,11 @@ public class TestController {
     public void sendMessage(@PathVariable("message") String message) {
 
         kafkaProducer.sendMessage(KafkaTopic.TEST_TOPIC, message);
+    }
+
+    @GetMapping("/send")
+    public void sendMessage1(@RequestParam("message") String message) {
+        TestMessage testMessage = JSONObject.parseObject(message, TestMessage.class);
+        kafkaProducer.sendMessage(KafkaTopic.TEST_TOPIC, testMessage.getOneid(), message);
     }
 }

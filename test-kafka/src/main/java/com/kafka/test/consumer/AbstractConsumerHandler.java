@@ -36,7 +36,7 @@ public abstract class AbstractConsumerHandler {
                         long start = System.currentTimeMillis();
                         handle(consumerRecord);
                         log.info("[submit] handle cost:{}", System.currentTimeMillis() - start);
-                    } catch (Throwable e) {
+                    } catch (Exception e) {
                         log.error("[submit] consumer executor ", e);
                     } finally {
                         countDownLatch.countDown();
@@ -45,8 +45,8 @@ public abstract class AbstractConsumerHandler {
 
             });
             countDownLatch.await();
-        } catch (InterruptedException e) {
-            log.error("[submit] submit throw InterruptedException", e);
+        } catch (Exception e) {
+            log.error("[submit] submit throw Exception", e);
         }
     }
 
