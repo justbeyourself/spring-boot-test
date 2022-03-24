@@ -1,7 +1,7 @@
 package com.test.nacos.web;
 
 import com.alibaba.nacos.api.config.annotation.NacosValue;
-import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
+import com.test.nacos.consumer.TestConsumerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/nacos/test")
 public class TestController {
 
+    @Autowired
+    private TestConsumerService testConsumerService;
+
     @NacosValue(value = "${test.value:123}", autoRefreshed = true)
     private String testValue;
 
@@ -27,5 +30,10 @@ public class TestController {
     public String getConfig() {
 
         return testValue + "_" + testValue1;
+    }
+
+    @GetMapping("/test")
+    public String test() {
+        return testConsumerService.test();
     }
 }

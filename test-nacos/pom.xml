@@ -17,11 +17,35 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
 
+        <!--nacos config -->
         <dependency>
             <groupId>com.alibaba.boot</groupId>
             <artifactId>nacos-config-spring-boot-starter</artifactId>
-            <version>0.2.3</version>
+            <version>0.2.8</version>
+            <exclusions>
+                <exclusion>
+                    <artifactId>spring-context-support</artifactId>
+                    <groupId>com.alibaba.spring</groupId>
+                </exclusion>
+            </exclusions>
         </dependency>
+
+        <!-- dubbo -->
+        <dependency>
+            <groupId>com.alibaba.nacos</groupId>
+            <artifactId>nacos-client</artifactId>
+            <version>1.4.2</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.dubbo</groupId>
+            <artifactId>dubbo-spring-boot-starter</artifactId>
+            <version>2.7.7</version>
+        </dependency>
+        <!--<dependency>-->
+            <!--<groupId>com.alibaba.spring</groupId>-->
+            <!--<artifactId>spring-context-support</artifactId>-->
+            <!--<version>1.0.6</version>-->
+        <!--</dependency>-->
     </dependencies>
 
 </project>
