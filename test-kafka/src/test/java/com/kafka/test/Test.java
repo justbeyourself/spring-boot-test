@@ -2,6 +2,7 @@ package com.kafka.test;
 
 import com.alibaba.fastjson.JSON;
 import com.google.common.collect.Maps;
+import com.kafka.test.domain.ConsumerCache;
 import com.kafka.test.domain.MemberInfo;
 import com.kafka.test.domain.TestMessage;
 import lombok.extern.slf4j.Slf4j;
@@ -22,18 +23,13 @@ import java.util.UUID;
 @Slf4j
 public class Test {
 
+    private final ConsumerCache consumerCache = new ConsumerCache();
 
     @org.junit.Test
     public void messageTest() {
-        TestMessage testMessage = new TestMessage();
-        testMessage.setMessageId(UUID.randomUUID().toString());
-        testMessage.setOneid("10000014274909");
-        testMessage.setMrchCode(1L);
-        testMessage.setTenantId(1L);
-        testMessage.setEventCode("test");
-        testMessage.setTriggerTime(System.currentTimeMillis());
 
-        System.out.println(JSON.toJSONString(testMessage));
+
+        System.out.println(consumerCache.getConsumerExecutorKey(1,"qweqwew",10));
     }
 
     public static void main(String[] args) {
