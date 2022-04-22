@@ -32,6 +32,7 @@ public class KafkaConsumer {
         ack.acknowledge();
         log.info("[listen] listen cost{}", System.currentTimeMillis() - start);
 
+
     }
 }
 

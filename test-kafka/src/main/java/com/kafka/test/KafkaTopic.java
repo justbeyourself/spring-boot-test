@@ -6,6 +6,6 @@ package com.kafka.test;
  * @create: 2022-03-09 18:06
  */
 public class KafkaTopic {
+    public static final String TEST_TOPIC = "real_time_event";
 
-    public static final String TEST_TOPIC = "test_topic55";
 }

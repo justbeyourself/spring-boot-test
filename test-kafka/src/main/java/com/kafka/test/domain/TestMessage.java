@@ -8,7 +8,6 @@ import java.util.Map;
 
 @Data
 public class TestMessage implements Serializable {
-
     private static final long serialVersionUID = 1L;
 
     /**
@@ -39,12 +38,17 @@ public class TestMessage implements Serializable {
     /**
      * 属性MAP
      */
-    private Map<String,Object> attributes;
+    private Map<String, Object> attributes;
 
     /**
      * 事件时间
      */
     private Long triggerTime;
 
+    /**
+     * 会员信息
+     *
+     * 开卡，入会等事件需携带，不带后面相关触点无法触发
+     */
     private MemberInfo memberInfo;
 }
