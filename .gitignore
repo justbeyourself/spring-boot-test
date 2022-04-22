@@ -34,6 +34,7 @@ classes/
 *.ipr
 *.iml
 *.iws
+*.properties
 
 # system ignore
 .DS_Store
