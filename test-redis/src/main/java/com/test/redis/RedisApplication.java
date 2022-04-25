@@ -1,4 +1,4 @@
-package com.test.redisson;
+package com.test.redis;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -8,9 +8,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @author: zhanghuiyong
  * @create: 2022-03-25 20:35
  */
-@SpringBootApplication(scanBasePackages = {"com.test.redisson"})
-public class RedissonApplication {
+@SpringBootApplication(scanBasePackages = {"com.test.redis"})
+public class RedisApplication {
     public static void main(String[] args) {
-        SpringApplication.run(RedissonApplication.class, args);
+        SpringApplication.run(RedisApplication.class, args);
     }
 }
