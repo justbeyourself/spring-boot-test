@@ -1,0 +1,47 @@
+*.o
+*.lo
+*.la
+*.al
+.libs
+*.so
+*.so.[0-9]*
+*.a
+*.pyc
+*.pyo
+*.rej
+*~
+#*#
+.#*
+.*.swp
+*.classpath
+*.project
+.settings
+*.prefs
+*.log
+*.cache
+*.mule
+antx.properties
+*.metadata
+target/
+*.pmd
+*.class
+bin
+logs
+classes/
+
+# idea ignore
+.idea/
+*.ipr
+*.iml
+*.iws
+*dev.properties
+
+# system ignore
+.DS_Store
+Thumbs.db
+
+.dubbo/
+dubbo-cache/
+
+# --- JRebel
+/**/rebel.xml
